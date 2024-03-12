@@ -9,6 +9,7 @@ import type { Users } from "@prisma/client";
 import { networkInterfaces } from "os";
 
 import { processResponseMiddleware } from "../middlewares/processResponse.middleware.ts";
+import { cacheCore } from "./cache.ts";
 
 dotenv.config();
 
@@ -45,10 +46,12 @@ fs.readdir("./src/routes", (event, files) => {
   }
 });
 
-app.listen(process.env.API_PORT, () => {
+
+app.listen(process.env.API_PORT, async () => {
   console.clear();
   console.log(chalk.white("Iniciando a API..."));
   console.log("");
+  await cacheCore.initCache()
   const appUrl = networkInterfaces().en0?.find(
     (network) => network.family === "IPv4"
   );
