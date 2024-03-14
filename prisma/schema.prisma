@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Users {
@@ -37,7 +37,7 @@ model Group {
   stApproved  Boolean @default(false)
   type        String  @default("group")
   categoryId  Int?
-
+  group_image String?
   impulse          Boolean  @default(false)
   impulse_end_date DateTime @default(now())
 

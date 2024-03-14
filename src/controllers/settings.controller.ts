@@ -6,7 +6,12 @@ export const settingsPatchController = async (
   res: express.Response,
 ) => {
   try {
-    const { option, valOption } = req.body;
+    let { option, valOption } = req.body;
+
+
+    if(req.file) {
+      valOption = req.file.path.replaceAll('\\','/')+req.file.mimetype.replaceAll('/', '.')
+    }
 
     const setting = await prisma.setting.upsert({
       where: {

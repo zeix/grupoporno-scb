@@ -176,17 +176,25 @@ export const groupsCreateController = async (
   res: express.Response
 ) => {
   try {
-    const { title, link, categoryId, description, banner_image, type } =
+    const { title, link, categoryId, description, type } =
       req.body;
     const { user } = req.decoded;
-
+    console.log(req.file)
+    console.log(
+    title,
+    link,
+    categoryId,
+    description,
+    type,
+    req.file
+    )
     if (
       !title ||
       !link ||
       !categoryId ||
       !description ||
-      !banner_image ||
-      !type
+      !type ||
+      !req.file
     ) {
       return res.processResponse(400, "Preencha todos os campos");
     }
@@ -223,9 +231,9 @@ export const groupsCreateController = async (
         description,
         link,
         slug,
-        categoryId,
+        categoryId: Number(categoryId),
         userIdCreated: user.id,
-        bannerImage: banner_image,
+        bannerImage: req.file.filename,
         type,
       },
     });
