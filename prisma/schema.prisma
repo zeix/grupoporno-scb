@@ -33,7 +33,7 @@ model Group {
   description String? @db.LongText
   slug        String  @unique @default("")
   link        String  @unique
-  bannerImage String  @default("") @db.LongText
+  bannerImage String  @default("") 
   stApproved  Boolean @default(false)
   type        String  @default("group")
   categoryId  Int?
